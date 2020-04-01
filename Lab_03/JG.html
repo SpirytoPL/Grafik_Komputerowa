@@ -93,8 +93,8 @@
             //Opis sceny 3D, kolor każdego z wierzchołków
             let vertexColor = [
                 //Top
-                1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, //3 punkty po 3 składowe - R1,G1,B1, R2,G2,B2, R3,G3,B3 - 1 trójkąt
-                1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+                getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0),
+                getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0), getRandomIntInclusive(0.0, 1.0),
                 //Left
                 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
                 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
@@ -137,7 +137,7 @@
             angle = angle + 1
 
 
-
+            /*
             function mulMatrix(inA, inB, inC)
             {
                 let out = [
@@ -147,9 +147,24 @@
                     0, 0, -5, 1 //Położenie kamery
                 ];
                 return out;
+            }*/
+            function mulMatrix(inA, inB)
+            {
+                let out = [
+                    (inA[0] * inB[0]) + (inA[1] * inB[4]) + (inA[2] * inB[8]),
+                    (inA[0] * inB[1]) + (inA[1] * inB[5]) + (inA[2] * inB[9]),
+                    (inA[0] * inB[2]) + (inA[1] * inB[6]) + (inA[2] * inB[10]), 0,
+                    (inA[4] * inB[0]) + (inA[5] * inB[4]) + (inA[6] * inB[8]),
+                    (inA[4] * inB[1]) + (inA[5] * inB[5]) + (inA[6] * inB[9]),
+                    (inA[4] * inB[2]) + (inA[5] * inB[6]) + (inA[6] * inB[10]), 0,
+                    (inA[8] * inB[0]) + (inA[9] * inB[4]) + (inA[10] * inB[8]),
+                    (inA[8] * inB[1]) + (inA[9] * inB[5]) + (inA[10] * inB[9]),
+                    (inA[8] * inB[2]) + (inA[9] * inB[6]) + (inA[10] * inB[10]), 0.0,
+                    0, 0, -5, 1
+                ];
+                return out;
             }
-
-            /*
+            
             let uMVMatrixX = [                              //podstawowa
                 1, 0, 0, 0, //Macierz Rotacji
                 0, Math.cos(angle * Math.PI / 180.0), -Math.sin(angle * Math.PI / 180.0), 0,
@@ -170,8 +185,8 @@
                 0, 0, 1, 0.0,
                 0, 0, -5, 1 //Położenie kamery
             ];
-            */
-
+            
+            /*
             // oś X
             let uMVMatrixX = [                          //zniekształcona 
                 1, 1,1, 0, //Macierz Rotacji
@@ -192,7 +207,7 @@
                 Math.sin(angle * Math.PI / 180.0), Math.cos(angle * Math.PI / 180.0), 0, 0,
                 1, 1, 1, 0.0,
                 0, 0, -5, 1 //Położenie kamery
-            ];
+            ];*/
             //let uMVMatrixX = mulMatrix(uMVMatrixX, uMVMatrixY);
             //alert(uPMatrix);
 
@@ -207,7 +222,7 @@
             gl.depthFunc(gl.LEQUAL);            //
 
             gl.uniformMatrix4fv(gl.getUniformLocation(shaderProgram, "uPMatrix"), false, new Float32Array(uPMatrix)); //Wgranie macierzy kamery do pamięci karty graficznej
-            gl.uniformMatrix4fv(gl.getUniformLocation(shaderProgram, "uMVMatrix"), false, new Float32Array(mulMatrix(uMVMatrixX, uMVMatrixY, uMVMatrixZ )));
+            gl.uniformMatrix4fv(gl.getUniformLocation(shaderProgram, "uMVMatrix"), false, new Float32Array(mulMatrix(uMVMatrixX, uMVMatrixY )));
 
             gl.enableVertexAttribArray(gl.getAttribLocation(shaderProgram, "aVertexPosition"));  //Przekazanie położenia
             gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
