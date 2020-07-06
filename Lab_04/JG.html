@@ -278,7 +278,7 @@ function startGL()
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexPosition), gl.STATIC_DRAW);
   vertexPositionBuffer.itemSize = 3; //zdefiniowanie liczby współrzednych per wierzchołek
-  vertexPositionBuffer.numItems = 512; //Zdefinoiowanie liczby punktów w naszym buforze
+  vertexPositionBuffer.numItems = 114; //Zdefinoiowanie liczby punktów w naszym buforze
   
   //Opis sceny 3D, kolor każdego z wierzchołków
   let vertexColor = [
@@ -415,7 +415,7 @@ function startGL()
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexColor), gl.STATIC_DRAW);
   vertexColorBuffer.itemSize = 3;
-  vertexColorBuffer.numItems = 512;
+  vertexColorBuffer.numItems = 114;
   
   
   //Macierze opisujące położenie wirtualnej kamery w przestrzenie 3D
